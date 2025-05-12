@@ -131,6 +131,7 @@ export const postType = defineType({
       name: "relatedPosts",
       type: "array",
       of: [{ type: "reference", to: { type: "post" } }],
+      group: "content",
     }),
   ],
   preview: {

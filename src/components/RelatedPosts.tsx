@@ -2,9 +2,9 @@
 
 import Link from "next/link";
 import { createDataAttribute } from "next-sanity";
+import { POST_QUERYResult } from "@/sanity/types";
 import { client } from "@/sanity/lib/client";
 import { useOptimistic } from "next-sanity/hooks";
-import { POSTS_QUERYResult } from "@/sanity/types";
 
 const { projectId, dataset, stega } = client.config();
 export const createDataAttributeConfig = {
@@ -18,13 +18,13 @@ export function RelatedPosts({
   documentId,
   documentType,
 }: {
-  relatedPosts: NonNullable<POSTS_QUERYResult>["relatedPosts"];
+  relatedPosts: NonNullable<POST_QUERYResult>["relatedPosts"];
   documentId: string;
   documentType: string;
 }) {
   const posts = useOptimistic<
-    NonNullable<POSTS_QUERYResult>["relatedPosts"] | undefined,
-    NonNullable<POSTS_QUERYResult>
+    NonNullable<POST_QUERYResult>["relatedPosts"] | undefined,
+    NonNullable<POST_QUERYResult>
   >(relatedPosts, (state, action) => {
     if (action.id === documentId && action?.document?.relatedPosts) {
       // Optimistic document only has _ref values, not resolved references
